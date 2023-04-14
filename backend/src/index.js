@@ -1,12 +1,14 @@
 //server
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
+//secrets
+const config = require('../../config');
+
 
 //middlewares 
 const bodyParser = require('body-parser');
-
-//secrets
-const config = require('./config');
 
 //database
 const connect = require('./db')
@@ -16,9 +18,13 @@ const port = config.PORT || 3000 //port
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false})); // convert json
 
+app.use(cors({
+    exposedHeaders: ['x-access-token']
+}))
+
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Origin', '*');
     next();
 })
 
