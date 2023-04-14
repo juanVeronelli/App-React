@@ -1,0 +1,35 @@
+#_Descripción del proyecto_
+##Este proyecto es una aplicación web construida con React.js y Bootstrap, que consiste en una plataforma para crear y gestionar tareas. El usuario puede crear una cuenta y acceder a su perfil para crear nuevas tareas, marcarlas como completadas y eliminarlas.
+
+La aplicación consume una API RESTful construida con Node.js y Express.js, que se encarga de gestionar los datos de los usuarios y las tareas. Para el almacenamiento de los datos se utiliza MongoDB.
+
+#Tecnologías utilizadas
+-*React.js*
+-*Bootstrap*
+-*Node.js*
+-*Express.js*
+-*MongoDB*
+
+#_INSTRUCCIONES_#
+
+*Comandos para la aplicación*
+- git clone https://github.com/juanVeronelli/App-React.git
+
+-npm init 
+
+- desde la carpeta "frontend" npm i axios js-cookie jwt-decode react react-dom react-router-dom
+
+- desde la carpeta "backend" npm install bcrypt body-parser cors express js-cookie jsonwebtoken mongoose nodemailer
+
+#*INICIAR APLICACION*
+-En la carpeta "frontend" npm run dev
+-en la carpeta "backend" npm run ./src
+
+##la App usa un archivo .config que guarda el puerto del servidor, la clave de cifrado y la url de la base de datos, estas mismas son:
+
+puerto = 3000
+secreto = 'lliveapi'
+url = 'mongodb+srv://llive:vero0015@llivepag.ibflnzs.mongodb.net/test'
+
+#Créditos
+El proyecto fue creado por Juan Veronelli como parte de un desafío técnico.
