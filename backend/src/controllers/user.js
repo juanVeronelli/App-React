@@ -1,5 +1,6 @@
 const { model, encryptPassword, comparePassword } = require('../models/user');
 const jwt = require('jsonwebtoken');
+const cookie = require('js-cookie');
 const config = require('../../../config');
 
 const user = {
@@ -25,7 +26,7 @@ const user = {
             const savedUser = await user.save()
 
             const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
-                expiresIn: '1m' // 3 horas
+                expiresIn: '3h' // 3 horas
             });
 
             if (!savedUser) return res.status(404).send({ status: "Error", message: "No se ha podido guardar", error: err });
@@ -47,12 +48,12 @@ const user = {
             if (!matchPassword) return res.status(401).send({ status: "Error", message: "Contraseña incorrecta" });
 
             const token = jwt.sign({ id: query._id }, config.SECRET, {
-                expiresIn: '1m'
+                expiresIn: '3h'
             });
             
-            const username = query.username
             res.set("x-access-token", token);
-            return res.status(200).send({token, username});
+            res.cookie('token', token, { httpOnly: true, secure: false });
+            return res.status(200).send({token});
 
         } catch (err) { console.log(err) }
     },
