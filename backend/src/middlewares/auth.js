@@ -12,6 +12,5 @@ exports.verifyToken = async (req, res, next) => {
 
     const user = await model.findById(userId);
     if (!user) return res.status(404).send({ status: "Error", message: "No enocntramos el usuario" });
-    res.status(200).send({ status: "Success", message: user});
     next();
 }

@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false})); // convert json
 
 app.use(cors({
-    exposedHeaders: ['x-access-token']
+    exposedHeaders: ['x-access-token', 'id-user-controll']
 }))
 
 app.use((req, res, next)=>{
@@ -30,8 +30,10 @@ app.use((req, res, next)=>{
 
 
 //routes settings
-const crud = require('./routes/user');
-app.use('/', crud);
+const main = require('./routes/user');
+const images = require('./routes/images');
+app.use('/', main);
+app.use('/images', images);
 
 
 app.listen(port, ()=>{
