@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Header from "./header";
+import Header from "../helpers/header";
 
 
 const Register = () => {
@@ -9,7 +9,7 @@ const Register = () => {
   const [user, setUser] = useState(
     {
       username: "",
-      password: "",
+      password: "", 
       email: "",
     },
     []

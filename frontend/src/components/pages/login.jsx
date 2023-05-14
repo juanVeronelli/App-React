@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt from "jwt-decode";
 import axios from "axios";
-import Header from "./header";
+import Header from "../helpers/header";
 import cookie from "js-cookie";
 
 const Login = () => {

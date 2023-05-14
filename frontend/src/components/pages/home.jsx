@@ -1,34 +1,26 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import Container from "./helpers/container";
+import Container from "../helpers/container";
+import cookie from 'js-cookie'
 
+
+import expired from '../helpers/expiredToken'
 // styles
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const state = useLocation();
   const navigation = useNavigate();
-  const token = state.state.userData
+  const token = cookie.get('token');
+
 
   useEffect(() => {
     try {
-      if (token) {
-
-        const decodedToken = jwt_decode(token);
-        const currentTime = Date.now() / 1000;
-
-        if (decodedToken.exp < currentTime) {
-          alert("la sesion a expirado seras redirigdo");
-          navigation("/login");
-        }
-      } else if (!token) {
-        navigation("/login");
-      }
+      if(expired(token)) return navigation("/login")
     } catch {
       navigation("/login");
     }
-  }, [state]);
+  }, []);
 
   return (
     <>
@@ -54,18 +46,18 @@ const Home = () => {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to='/home'
+                to={'/home'}
               >
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/profile">
+              <Link className="nav-link" to={'/profile'}>
                 Profile
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">
+              <Link className="nav-link" to={"/dashboard"}>
                 Dashboard
               </Link>
             </li>
@@ -76,13 +68,12 @@ const Home = () => {
             data-bs-toggle="modal"
             data-bs-target="#postModal"
           >
-            Post photo
+            New Photo
           </button>
         </div>
       </div>
     </nav>
       <div className="container mt-5">
-        <h1> Images posted by users</h1>
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
           <Container token= {token} />
         </div>

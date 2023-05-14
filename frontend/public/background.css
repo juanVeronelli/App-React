@@ -1,0 +1,16 @@
+body{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display:block;
+}
+
+.img-fluid{
+    width: 30%;
+    border-radius: 20%;
+}

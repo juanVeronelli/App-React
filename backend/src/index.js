@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+const path = require('path');
+
 //secrets
 const config = require('../../config');
 
@@ -10,19 +12,23 @@ const config = require('../../config');
 //middlewares 
 const bodyParser = require('body-parser');
 
+
 //database
 const connect = require('./db')
 
 //server settings
 const port = config.PORT || 3000 //port
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false})); // convert json
+app.use(bodyParser.urlencoded({ extended: false })); // convert json
+
+app.use('/public/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
 
 app.use(cors({
     exposedHeaders: ['x-access-token', 'id-user-controll']
 }))
 
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
     res.header('Access-Control-Allow-Origin', '*');
     next();
@@ -36,7 +42,7 @@ app.use('/', main);
 app.use('/images', images);
 
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log('App escuchando en el puerto ' + port);
     connect(config.url);
 })
