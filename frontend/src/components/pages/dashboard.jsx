@@ -1,17 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import Dash from "../helpers/dashphotos";
+import axios from "axios";
+import '../../../public/images.css'
 import cookie from "js-cookie";
 
 const dashboard = () => {
+  const cards = [];
   const navigation = useNavigate();
+  const [imagesData, setImagesData] = useState(null);
 
   const handleLogout = async (event) => {
     event.preventDefault();
     cookie.remove("token");
     navigation("/login");
   };
+
+  useEffect(()=>{
+    axios.get('http://localhost:3000/images/dashboard', {
+      headers: {
+        'x-access-token': cookie.get("token")
+      }
+    }).then((response) => {
+      setImagesData(response.data.data);
+    })
+  })
+
+  if (!imagesData)
+  return (
+    <>
+      {" "}
+      <h1> Loading... </h1>
+    </>
+  );
+
+  const { count, images } = imagesData;
+  for (let i = 0; i < count; i++) {
+    cards.push(
+      <Dash
+        key={i}
+        user={images[i]}
+        image={images[i].url}
+      />
+    );
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -64,6 +97,12 @@ const dashboard = () => {
           </div>
         </div>
       </nav>
+        <h1 className="title"> Your Photos </h1>
+      <div className="grid-container">
+        <div className="grid-display">
+            {cards}
+        </div>
+      </div>
     </>
   );
 };

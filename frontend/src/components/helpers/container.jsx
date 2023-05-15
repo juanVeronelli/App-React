@@ -37,7 +37,6 @@ const Container = (props) => {
   for (let i = 0; i < count; i++) {
     cards.push(
       <Images
-        key={i}
         user={images[i]}
         image={images[i].url}
         username={images[i].user.username}

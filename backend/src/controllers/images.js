@@ -42,6 +42,41 @@ const image = {
         } catch (err) {
             console.log(err)
         }
+    },
+    dash: async (req, res) => {
+        try {
+            if (!req.body) return res.status(404).send({ status: "Error", message: "Not found body" });
+
+            const token = req.headers["x-access-token"];
+            if (!token) return res.send({ status: "Error", message: "Not Found Token" });
+
+            const id = decode(token).id
+            if (!id) return res.status(401).send({ status: "Error", message: 'not found user' });
+
+            const ok = await model.find({ user: id });
+            if (!ok) return res.status(404).send({ status: "Error", message: "cant found document" });
+            return res.status(200).send({
+                status: "succesfuly", message: "Image saved successfully", data: {
+                    images: ok,
+                    count: JSON.stringify(ok.length)
+                }
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    remove: async (req, res) => {
+        try {
+
+            if (!req.body) return res.status(404).send({ status: "Error", message: "Not found body" });
+            const ok = await model.findByIdAndDelete({ _id: req.body._id })
+            if (!ok) return res.status(404).send({ status: "Error", message: "cant delete document" });
+            return res.status(200).send({ status: "succesfuly", message: "Image deleted successfully" })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 }
 

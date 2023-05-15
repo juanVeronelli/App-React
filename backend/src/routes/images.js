@@ -10,7 +10,7 @@ router.get('/g', verifyToken, Controller.get);
 
 //protected Routes #################
 router.post('/upload', upload.single("image"), Controller.post);
-
-
+router.get('/dashboard', verifyToken, Controller.dash)
+router.post('/remove', verifyToken, Controller.remove)
 module.exports = router
 
