@@ -5,6 +5,17 @@ const imageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    "title": {
+        type: String,
+        required: true
+    },
+    "description": {
+        type: String
+    },
+    "date": {
+        type: String,
+        require: true
+    },
     "user": {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'USERS',

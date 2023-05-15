@@ -1,28 +1,17 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import Container from "../helpers/container";
-import cookie from "js-cookie";
-
-import expired from "../helpers/expiredToken";
-// styles
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+import cookie from "js-cookie";
+
+const dashboard = () => {
   const navigation = useNavigate();
-  const token = cookie.get("token");
 
-  const redirect = () => {
-    navigation("/post");
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    cookie.remove("token");
+    navigation("/login");
   };
-  useEffect(() => {
-    try {
-      if (expired(token)) return navigation("/login");
-    } catch {
-      navigation("/login");
-    }
-  }, []);
-
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,30 +47,25 @@ const Home = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={"/dashboard"}>
+                <Link className="nav-link" to="/dashboard">
                   Dashboard
                 </Link>
               </li>
             </ul>
             <button
               type="button"
-              className="btn btn-purple rounded-pill"
+              className="btn btn-purple rounded-pill custome"
               data-bs-toggle="modal"
               data-bs-target="#postModal"
-              onClick={redirect}
+              onClick={handleLogout}
             >
-              New Photo
+              LogOut
             </button>
           </div>
         </div>
       </nav>
-      <div className="grid-container">
-        <div className="grid-display">
-          <Container token={token} />
-        </div>
-      </div>
     </>
   );
 };
 
-export default Home;
+export default dashboard;

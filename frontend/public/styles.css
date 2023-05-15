@@ -4,7 +4,10 @@
 
 *{
   font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
 
 .navbar{
   height: 90px;
@@ -12,19 +15,23 @@
 
   .profile-name {
      margin-top: 0.2rem;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     text-align: center;
   }
-  .card-overlay {
-    position: relative;
+
+  .card-img-top{
+    box-shadow: 1px 3px 15px 0.2px rgba(0, 0, 0, 0.3);
   }
+
+
   .profile-info {
     position: absolute;
-    bottom: 0;
+    opacity: 0.8;
+    bottom: 0.5rem;
     left: 50%;
     transform: translateX(-50%);
     padding: 1rem;
-    color: white;
+    color: aliceblue;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
   }
 
@@ -32,6 +39,7 @@
    color: #6200EE;
 
   }
+
 
   .btn-purple {
     background-color: #6200EE;
@@ -50,7 +58,21 @@
   }
 
   .custome::before{
-    content: "><";
+    content: "";
   }
 
+  .image-icon {
+    width: 40%;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin-left: 3rem;
+  }
+
+  .profile-date{
+    font-size: 1rem;
+    text-align: center;
+    position: absolute;
+    top: 5.5rem;
+    left: 3.5rem;
+  }
   

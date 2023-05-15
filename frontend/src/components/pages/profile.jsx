@@ -49,15 +49,15 @@ function ProfilePage() {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const userData = {
-      username: editUser.username,
-      birthdate: editUser.birthdate,
-      profilePicture: editUser.profilePicture,
-    };
-
     try {
+      event.preventDefault();
+
+      const userData = {
+        username: editUser.username,
+        birthdate: editUser.birthdate,
+        profilePicture: editUser.profilePicture,
+      };
+      console.log(userData);
       await axios.post("http://localhost:3000/upload", userData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -150,7 +150,7 @@ function ProfilePage() {
           <div className="col-md-10 col-lg-10 col-xl-10">
             <div className="card shadow-lg border-0 rounded-lg mt-4">
               <div className="card-header text-center">
-                <h1 className="text-center font-weight-light mb-5 my-4 fs-2 ">
+                <h1 className="text-center font-weight-light mb-4 my-4 fs-2 ">
                   {" "}
                   Your profile{" "}
                 </h1>
@@ -184,7 +184,7 @@ function ProfilePage() {
                   <div className="d-flex w-100 justify-content-center">
                     <form
                       className="my-5"
-                      enctype="multipart/form-data"
+                      encType="multipart/form-data"
                       onSubmit={handleSubmit}
                     >
                       <input

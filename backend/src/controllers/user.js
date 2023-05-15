@@ -68,7 +68,6 @@ const user = {
             if (!id) return res.status(401).send({ status: "Error", message: 'not found user' });
             var query = await model.findOne({ _id: id });
             if (!query) return res.status(404).send({ status: "Error", message: "not found user" });
-            console.log(req.file)
             const image = `${req.protocol}://${req.get('host')}/public/uploads/${req.file.filename}`;
             const ok = await query.updateOne({
                 $set: {

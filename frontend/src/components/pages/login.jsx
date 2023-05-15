@@ -12,8 +12,8 @@ const Login = () => {
     password: "",
     email: "",
   });
-  
-  // save values 
+
+  // save values
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -26,32 +26,30 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:3000/login", user);
       if (response.data) {
-        cookie.set('token', response.data.token); // save token in cookie
+        cookie.set("token", response.data.token); // save token in cookie
         return navigate("/home", { state: { userData: response.data.token } });
       }
-      setData(response.data);  
-    } catch (error) {
-      console.log("no se ha iniciado sesion");
-    }
+      setData(response.data);
+    } catch (error) {}
   };
 
   useEffect(() => {
-    const token = cookie.get('token'); // get cookie token
+    const token = cookie.get("token"); // get cookie token
     if (token) {
       try {
         const decoded = jwt(token);
         if (decoded.exp * 1000 < Date.now()) {
           // expired token, remove cookie and redirect to login
-          cookie.remove('token');
-          navigate('/login');
+          cookie.remove("token");
+          navigate("/login");
         } else {
           // valid token, redirect to home
-          navigate('/home', {state: {userData: token}});
+          navigate("/home", { state: { userData: token } });
         }
       } catch (error) {
         // error decoding token, delete cookie and redirect to login
-        cookie.remove('token');
-        navigate('/login');
+        cookie.remove("token");
+        navigate("/login");
       }
     }
   }, []);
@@ -61,7 +59,7 @@ const Login = () => {
       <Header />
       <div className="container mt-5">
         <div className="row justify-content-center">
-          <div className="col-md-6 col-lg-5 col-xl-4">
+          <div className="col-md-6 w-100 col-xl-4">
             <div className="card shadow-lg border-0 rounded-lg mt-5">
               <div className="card-header">
                 <h3 className="text-center font-weight-light my-4">
