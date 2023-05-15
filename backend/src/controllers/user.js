@@ -26,7 +26,7 @@ const user = {
             //save user
             const savedUser = await user.save()
 
-            const token = jwtsign({ id: savedUser._id }, config.SECRET, {
+            const token = jwtsign({ id: savedUser._id }, process.env.SECRET, {
                 expiresIn: '1h' // 3 horas
             });
 
@@ -48,7 +48,7 @@ const user = {
             const matchPassword = await comparePassword(req.body.password, query.password);
             if (!matchPassword) return res.status(401).send({ status: "Error", message: "Contraseña incorrecta" });
 
-            const token = jwt.sign({ id: query._id }, config.SECRET, {
+            const token = jwt.sign({ id: query._id }, process.env.SECRET, {
                 expiresIn: '1h'
             });
 

@@ -9,7 +9,7 @@ exports.verifyToken = async (req, res, next) => {
         const token = req.headers["x-access-token"];
         if (!token) return res.status(400).send({ status: "Error", message: "Falta el token" });
 
-        const decoded = jwt.verify(token, config.SECRET);
+        const decoded = jwt.verify(token, process.env.SECRET);
         const userId = decoded.id;
 
         const user = await model.findById(userId);
